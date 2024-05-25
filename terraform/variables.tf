@@ -1,9 +1,9 @@
 variable "prefix" {
-  default = "tech4good-client"
+  default = "techies4good-client"
 }
 
 variable "project" {
-  default = "tech4good-client-app"
+  default = "techies4good-client-app"
 }
 
 variable "custom_error_response" {

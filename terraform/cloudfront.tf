@@ -1,8 +1,8 @@
-resource "aws_cloudfront_origin_access_identity" "tech4good_cloudfront_origin_access_identity" {
-  comment = "Origin access identity for the tech4good"
+resource "aws_cloudfront_origin_access_identity" "techies4good_cloudfront_origin_access_identity" {
+  comment = "Origin access identity for the techies4good"
 }
 
-resource "aws_cloudfront_distribution" "tech4good_cloudfront_distribution" {
+resource "aws_cloudfront_distribution" "techies4good_cloudfront_distribution" {
   retain_on_delete    = false
   price_class         = "PriceClass_All"
   enabled             = true
@@ -10,17 +10,17 @@ resource "aws_cloudfront_distribution" "tech4good_cloudfront_distribution" {
   default_root_object = "index.html"
 
   origin {
-    domain_name = aws_s3_bucket.tech4good_s3_bucket.bucket_regional_domain_name
-    origin_id   = aws_s3_bucket.tech4good_s3_bucket.id
+    domain_name = aws_s3_bucket.techies4good_s3_bucket.bucket_regional_domain_name
+    origin_id   = aws_s3_bucket.techies4good_s3_bucket.id
     s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.tech4good_cloudfront_origin_access_identity.cloudfront_access_identity_path
+      origin_access_identity = aws_cloudfront_origin_access_identity.techies4good_cloudfront_origin_access_identity.cloudfront_access_identity_path
     }
   }
 
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD", "OPTIONS"]
     cached_methods         = ["GET", "HEAD"]
-    target_origin_id       = aws_s3_bucket.tech4good_s3_bucket.id
+    target_origin_id       = aws_s3_bucket.techies4good_s3_bucket.id
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
     min_ttl                = 0
