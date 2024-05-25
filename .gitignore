@@ -25,3 +25,5 @@ dist-ssr
 
 .idea/
 .DS_Store
+.terraform
+.terraform.lock.hcl
