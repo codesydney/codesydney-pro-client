@@ -1,9 +1,9 @@
 variable "prefix" {
-  default = "t4g-client-test"
+  default = "tech4good-client"
 }
 
 variable "project" {
-  default = "t4g-client-test-app"
+  default = "tech4good-client-app"
 }
 
 variable "custom_error_response" {
@@ -13,7 +13,7 @@ variable "custom_error_response" {
     response_code = number
     response_page_path = string
   }))
-  description: "List of one or more custom error response element maps"
+  description = "List of one or more custom error response element maps"
   default = [
     {
       error_caching_min_ttl = 10
