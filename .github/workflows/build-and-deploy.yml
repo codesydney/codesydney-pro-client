@@ -128,10 +128,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
           mask-aws-account-id: 'no'
-      - name: Deploy to S3
+      - name: Unzip and Deploy to S3
         run: |
           AWS_BUCKET_NAME=$(cat tech4good_bucket_name.txt | tr -d '"')
-          aws s3 sync dist/ s3://${AWS_BUCKET_NAME}/ --delete
+          unzip dist.zip -d dist_unzipped
+          aws s3 sync dist_unzipped/ s3://${AWS_BUCKET_NAME}/ --delete
 
   deploy-to-aws-cloudfront:
     runs-on: ubuntu-latest
