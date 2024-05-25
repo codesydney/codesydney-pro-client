@@ -44,9 +44,13 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.4
+      - name: Terraform Format
+        run: |
+          cd terraform
+          terraform fmt -diff
+          terraform fmt -write=true
       - name: Terraform Validate
         run: |
           cd terraform
           terraform init -backend=false
           terraform validate
-          terraform fmt -check
