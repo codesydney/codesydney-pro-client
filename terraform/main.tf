@@ -4,8 +4,8 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "techies4good-tf-state"
-    key    = "techies4good.tfstate"
+    bucket = "t4g-tf-state"
+    key    = "t4g.tfstate"
     region = "ap-southeast-2"
     encrypt = true
   }
