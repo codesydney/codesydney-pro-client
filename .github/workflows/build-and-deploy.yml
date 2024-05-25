@@ -17,11 +17,26 @@ jobs:
           rm -rf node_modules package-lock.json
           npm install
       - name: Run build
-        run: npm run build
+        run: |
+          npm run build
+          cd build
+          zip ../build.zip -r *.[^.]*
+          echo "Build Successful"
+      - name: Copy Terraform Folder
+        run: |
+          mkdir -p artifacts/terraform
+          cp -r terraform artifacts/terraform
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            build.zip
+            artifacts/
 
   terraform-validate:
     runs-on: ubuntu-latest
-    needs: test
+    needs: build
     steps:
       - name: Get Code
         uses: actions/checkout@v4
