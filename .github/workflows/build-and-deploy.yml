@@ -20,7 +20,7 @@ jobs:
         run: |
           npm run build
           cd dist
-          zip ../dist.zip -r *.[^.]*
+          zip -r ../dist.zip .
           echo "Build Successful"
       - name: Copy Terraform Folder
         run: |
@@ -65,7 +65,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
-          path: dist
+          path: .
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -116,11 +116,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
-          path: dist
+          path: .
       - name: Download Terraform Artifacts
         uses: actions/download-artifact@v4
         with:
           name: terraform-artifacts
+          path: .
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -142,6 +143,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: terraform-artifacts
+          path: .
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
