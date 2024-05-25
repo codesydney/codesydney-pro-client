@@ -131,7 +131,7 @@ jobs:
       - name: Deploy to S3
         run: |
           AWS_BUCKET_NAME=$(cat tech4good_bucket_name.txt | tr -d '"')
-          aws s3 sync dist s3://${AWS_BUCKET_NAME} --delete
+          aws s3 sync dist/ s3://${AWS_BUCKET_NAME}/ --delete
 
   deploy-to-aws-cloudfront:
     runs-on: ubuntu-latest

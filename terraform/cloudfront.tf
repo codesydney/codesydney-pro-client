@@ -24,7 +24,8 @@ resource "aws_cloudfront_distribution" "tech4good_cloudfront_distribution" {
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
     min_ttl                = 0
-    max_ttl                = 300
+    default_ttl            = 86400
+    max_ttl                = 31536000
 
     forwarded_values {
       query_string = true

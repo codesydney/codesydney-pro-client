@@ -9,9 +9,9 @@ resource "aws_s3_bucket_public_access_block" "tech4good_s3_bucket_public_access_
   bucket = aws_s3_bucket.tech4good_s3_bucket.id
 
   block_public_acls       = true
-  block_public_policy     = false
+  block_public_policy     = false  # Allow bucket policies to control access
   ignore_public_acls      = true
-  restrict_public_buckets = false
+  restrict_public_buckets = false  # Allow public access with bucket policy
 }
 
 resource "aws_s3_bucket_versioning" "tech4good_s3_bucket_versioning" {
@@ -40,15 +40,23 @@ resource "aws_s3_bucket_website_configuration" "tech4good_s3_bucket_website_conf
 
 data "aws_iam_policy_document" "tech4good_s3_bucket_policy_document" {
   statement {
-    actions = ["s3:GetObject"]
-    resources = [
-      "${aws_s3_bucket.tech4good_s3_bucket.arn}/*"
-    ]
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.tech4good_s3_bucket.arn}/*"]
     principals {
-      type = "AWS"
-      identifiers = [
-        aws_cloudfront_origin_access_identity.tech4good_cloudfront_origin_access_identity.iam_arn
-      ]
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.tech4good_cloudfront_origin_access_identity.iam_arn]
     }
+  }
+
+  # Public access policy for static website hosting
+  statement {
+    sid       = "PublicReadGetObject"
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.tech4good_s3_bucket.arn}/*"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    effect = "Allow"
   }
 }
