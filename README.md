@@ -1,30 +1,38 @@
-# React + TypeScript + Vite
+# Techies4Good
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# The Team
+* @promie | Promie Yutasane | DevOps/Web Developer
+* @washington-shoji | Washington Shoji | Web Developer
+* @engramar | Engramar Bollas | Product Manager
 
-Currently, two official plugins are available:
+## Tech Stack
+### Backend
+* NestJS + TypeScript
+* Postgres
+* AWS (Lambda, API Gateway)
+* Serverless Framework (using CloudFormation)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Frontend
+* React + TypeScript
+* AWS (S3, CloudFront)
+* Terraform (Infrastructure as Code)
 
-## Expanding the ESLint configuration
+# Team Consensus
+* Monorepo
+* PR approval (at least 1 approval)
+* Use of PR submission template
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+# Issues Register
+* [https://github.com/codesydney/techies4good/issues](https://github.com/codesydney/techies4good/issues)
 
-- Configure the top-level `parserOptions` property like this:
+# Kanban Board
+* [https://github.com/orgs/codesydney/projects/20](https://github.com/orgs/codesydney/projects/20)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+# UX UI
+* [[Link to Figma](https://www.figma.com/file/DyT6QcKPcTSnDlm4tKMhWW/USTAA-Directory?type=design&node-id=0-1&mode=design&t=SDr6JpXOMT8gbvj7-0)](https://www.figma.com/design/TX0PBElOrpFTGkliocmiCQ/Techies4Good?node-id=0%3A1&t=rwaILM4OK9Lv1bGj-1)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+# Test Site
+* TBA
+
+## Requirements
+* TBA
