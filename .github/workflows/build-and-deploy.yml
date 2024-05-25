@@ -96,14 +96,14 @@ jobs:
       - name: Output Terraform State
         run: |
           cd terraform
-          terraform output frontend_workflow_bucket_name > ../frontend_workflow_bucket_name.txt
+          terraform output tech4good_bucket_name > ../tech4good_bucket_name.txt
           terraform output cloudfront_distribution_id > ../cloudfront_distribution_id.txt
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: terraform-artifacts
           path: |
-            frontend_workflow_bucket_name.txt
+            tech4good_bucket_name.txt
             cloudfront_distribution_id.txt
 
   deploy-to-aws-s3:
@@ -130,7 +130,7 @@ jobs:
           mask-aws-account-id: 'no'
       - name: Deploy to S3
         run: |
-          AWS_BUCKET_NAME=$(cat frontend_workflow_bucket_name.txt | tr -d '"')
+          AWS_BUCKET_NAME=$(cat tech4good_bucket_name.txt | tr -d '"')
           aws s3 sync dist s3://${AWS_BUCKET_NAME} --delete
 
   deploy-to-aws-cloudfront:
