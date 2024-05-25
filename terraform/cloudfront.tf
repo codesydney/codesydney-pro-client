@@ -1,5 +1,5 @@
 resource "aws_cloudfront_origin_access_identity" "tech4good_cloudfront_origin_access_identity" {
-  comment = "Origin access identity for the frontend workflow"
+  comment = "Origin access identity for the tech4good"
 }
 
 resource "aws_cloudfront_distribution" "tech4good_cloudfront_distribution" {

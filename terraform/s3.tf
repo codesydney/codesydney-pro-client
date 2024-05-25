@@ -23,7 +23,7 @@ resource "aws_s3_bucket_versioning" "tech4good_s3_bucket_versioning" {
 
 resource "aws_s3_bucket_policy" "tech4good_s3_bucket_policy" {
   bucket = aws_s3_bucket.tech4good_s3_bucket.id
-  policy = data.aws_iam_policy_document.frontend_workflow_s3_bucket_policy_document.json
+  policy = data.aws_iam_policy_document.tech4good_s3_bucket_policy_document.json
 }
 
 resource "aws_s3_bucket_website_configuration" "tech4good_s3_bucket_website_configuration" {
@@ -38,7 +38,7 @@ resource "aws_s3_bucket_website_configuration" "tech4good_s3_bucket_website_conf
   }
 }
 
-data "aws_iam_policy_document" "frontend_workflow_s3_bucket_policy_document" {
+data "aws_iam_policy_document" "tech4good_s3_bucket_policy_document" {
   statement {
     actions = ["s3:GetObject"]
 
