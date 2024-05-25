@@ -1,5 +1,5 @@
 output "techies4good_bucket_name" {
-  value = aws_s3_bucket.techies4good_s3_bucket.id
+  value = aws_s3_bucket.techies4good_cs_s3_bucket.id
 }
 
 output "cloudfront_distribution_id" {
