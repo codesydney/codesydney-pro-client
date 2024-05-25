@@ -1,9 +1,9 @@
 variable "prefix" {
-  default = "techies4good-client"
+  default = "techies4good-codesydney"
 }
 
 variable "project" {
-  default = "techies4good-client-app"
+  default = "techies4good-codesydney-app"
 }
 
 variable "custom_error_response" {
