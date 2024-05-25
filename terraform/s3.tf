@@ -9,9 +9,9 @@ resource "aws_s3_bucket_public_access_block" "tech4good_s3_bucket_public_access_
   bucket = aws_s3_bucket.tech4good_s3_bucket.id
 
   block_public_acls       = true
-  block_public_policy     = true
+  block_public_policy     = false
   ignore_public_acls      = true
-  restrict_public_buckets = true
+  restrict_public_buckets = false
 }
 
 resource "aws_s3_bucket_versioning" "tech4good_s3_bucket_versioning" {
@@ -41,15 +41,14 @@ resource "aws_s3_bucket_website_configuration" "tech4good_s3_bucket_website_conf
 data "aws_iam_policy_document" "tech4good_s3_bucket_policy_document" {
   statement {
     actions = ["s3:GetObject"]
-
     resources = [
-      aws_s3_bucket.tech4good_s3_bucket.arn,
       "${aws_s3_bucket.tech4good_s3_bucket.arn}/*"
     ]
-
     principals {
-      type        = "AWS"
-      identifiers = [aws_cloudfront_origin_access_identity.tech4good_cloudfront_origin_access_identity.iam_arn]
+      type = "AWS"
+      identifiers = [
+        aws_cloudfront_origin_access_identity.tech4good_cloudfront_origin_access_identity.iam_arn
+      ]
     }
   }
 }
