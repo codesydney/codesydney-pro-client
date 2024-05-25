@@ -96,14 +96,14 @@ jobs:
       - name: Output Terraform State
         run: |
           cd terraform
-          terraform output tech4good_bucket_name > ../tech4good_bucket_name.txt
+          terraform output techies4good_bucket_name > ../techies4good_bucket_name.txt
           terraform output cloudfront_distribution_id > ../cloudfront_distribution_id.txt
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: terraform-artifacts
           path: |
-            tech4good_bucket_name.txt
+            techies4good_bucket_name.txt
             cloudfront_distribution_id.txt
 
   deploy-to-aws-s3:
@@ -131,7 +131,7 @@ jobs:
           mask-aws-account-id: 'no'
       - name: Unzip and Deploy to S3
         run: |
-          AWS_BUCKET_NAME=$(cat tech4good_bucket_name.txt | tr -d '"')
+          AWS_BUCKET_NAME=$(cat techies4good_bucket_name.txt | tr -d '"')
           unzip dist.zip -d dist_unzipped
           aws s3 sync dist_unzipped/ s3://${AWS_BUCKET_NAME}/ --delete
 
