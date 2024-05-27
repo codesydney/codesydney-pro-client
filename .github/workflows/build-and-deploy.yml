@@ -45,6 +45,7 @@ jobs:
   csc-deploy:
     runs-on: ubuntu-latest
     needs: prettier-check
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/download-artifact@v4
         with:
