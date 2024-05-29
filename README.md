@@ -36,7 +36,24 @@
 | ** 2nd Milestone (Non-Profit/Charity sign up)**: By default, published profile will not expose all details to public. However, serious help seekers can sign up to T4G to see more details about the potential candidate.  |
 
 # Test Site
-* TBA
+* https://techies4good.code.sydney/
 
 ## Requirements
-* TBA
+* Node 20.13.1 LTS
+* NPX 10.x
+
+## Installation
+From the **root** directory, run the following command:
+
+```bash
+$ npm install
+```
+
+### Development Commands
+* **`npm run dev`**: Starts the development server using the local backend server (e.g., running on `http://localhost:5000`).
+* **`npm run dev:local`**: Starts the development server and connects to a local backend server running at `http://localhost:5000`.
+* **`npm run dev:serverless`**: Starts the development server and connects to the Lambda serverless API endpoint.
+
+### Environment Configuration
+- **Development**: By default, running `npm run dev` will use the serverless API endpoint. To connect to a local server, use `npm run dev:local`.
+- **Production**: When deployed to production, the site will connect to the serverless API endpoint. This ensures that the live site always uses the serverless infrastructure for handling API requests.

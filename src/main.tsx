@@ -5,15 +5,23 @@ import './index.css'
 import Root from './routes/root.tsx'
 import ErrorPage from './pages/error-page.tsx'
 import LoginPage from './pages/login-page.tsx'
+import HealthPage from './pages/health-page.tsx'
 import App from './App.tsx'
 import RegisterPage from './pages/register-page.tsx'
 import CustomerQueryPage from './pages/customer-query.tsx'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { queryClient } from './api/queryClient.ts'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: '/health',
+    element: <HealthPage />,
   },
   {
     path: '/login',
@@ -28,8 +36,6 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
-      // TODO: This is a child index page with replace navigation
-      // Currently assuming the customer query page to be the main page after user is validated???
       {
         index: true,
         element: <Navigate to="/home/customer-query" replace />,
@@ -44,6 +50,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   </React.StrictMode>,
 )
