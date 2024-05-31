@@ -19,7 +19,7 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState<boolean>(false)
 
   function onFieldChange(event: ChangeEvent<HTMLInputElement>): void {
-    let value: (typeof form)[keyof typeof form] = event.target.value
+    const value: (typeof form)[keyof typeof form] = event.target.value
 
     setForm({
       ...form,

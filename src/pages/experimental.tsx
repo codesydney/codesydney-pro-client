@@ -7,18 +7,20 @@ export default function ExperimentalPage() {
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState<boolean>(false)
 
-  async function handleGetUsers() {
-    const response = await getUsers(setLoading)
+  async function handleGetUsers(signal: AbortSignal) {
+    const response = await getUsers(setLoading, signal)
     setUsers(response.data)
   }
 
   useEffect(() => {
-    let isMounted = true
-    handleGetUsers()
+    const controller = new AbortController()
+    const signal = controller.signal
+
+    handleGetUsers(signal)
 
     return () => {
       // Clean up on unmount
-      isMounted = false
+      controller.abort()
     }
   }, [])
 

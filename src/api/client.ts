@@ -14,7 +14,7 @@ const apiClient = axios.create({
 })
 
 apiClient.interceptors.request.use(
-  (request: InternalAxiosRequestConfig<any>) => {
+  (request: InternalAxiosRequestConfig) => {
     const accessToken = localStorage.getItem('accessToken')
     console.warn('interceptors.request accessToken', accessToken)
     if (accessToken) {
@@ -30,7 +30,7 @@ apiClient.interceptors.request.use(
 )
 
 apiClient.interceptors.response.use(
-  (response: AxiosResponse<any, any>) => {
+  (response: AxiosResponse) => {
     return response
   },
   async (error: AxiosError) => {
