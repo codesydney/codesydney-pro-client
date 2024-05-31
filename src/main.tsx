@@ -12,6 +12,7 @@ import CustomerQueryPage from './pages/customer-query.tsx'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { queryClient } from './api/queryClient.ts'
+import ExperimentalPage from './pages/experimental.tsx'
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: '/home/customer-query',
         element: <CustomerQueryPage />,
+      },
+      {
+        path: '/home/experimental',
+        element: <ExperimentalPage />,
       },
     ],
   },
