@@ -16,7 +16,6 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (request: InternalAxiosRequestConfig) => {
     const accessToken = localStorage.getItem('accessToken')
-    console.warn('interceptors.request accessToken', accessToken)
     if (accessToken) {
       request.headers.Authorization = `Bearer ${accessToken}`
     }
@@ -24,7 +23,6 @@ apiClient.interceptors.request.use(
   },
   (error: AxiosError) => {
     // TODO: Add proper error handling
-    console.warn('interceptors.request error', error)
     return Promise.reject(error)
   },
 )
@@ -35,9 +33,22 @@ apiClient.interceptors.response.use(
   },
   async (error: AxiosError) => {
     const originalRequest = error.config!
+    const statusCode = error.response?.status
 
-    if (error.response?.status === 401) {
+    if (
+      statusCode === 401 &&
+      !error.response?.config?.url?.includes('auth/refresh') &&
+      !error.response?.config?.url?.includes('auth/login')
+    ) {
+      console.warn('statusCode 401', statusCode)
       const refreshToken = localStorage.getItem('refreshToken') ?? ''
+
+      // I think this is uga buga as we have to set the refresh token as header
+      // So it gets attached to the request
+      // For some reason the global interceptor over writes the request below
+      // Right now too tired to figure out why, so
+      // TODO: Sort out this interceptor to have the proper logic for refreshing tokens
+      localStorage.setItem('accessToken', refreshToken)
 
       if (refreshToken) {
         try {
@@ -46,8 +57,12 @@ apiClient.interceptors.response.use(
             {
               refreshToken,
             },
+            {
+              headers: {
+                Authorization: `Bearer ${refreshToken}`,
+              },
+            },
           )
-
           const newAccessToken = data.data.accessToken
           localStorage.setItem('accessToken', newAccessToken)
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
@@ -56,6 +71,8 @@ apiClient.interceptors.response.use(
           // TODO: Add proper error handling
           console.warn('interceptors.response error', error)
 
+          // Not sure if this the right argument to call
+          // Got ask the folks later
           window.location.href = '/login'
         }
       }

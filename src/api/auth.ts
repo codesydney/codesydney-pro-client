@@ -1,6 +1,7 @@
 import apiClient from './client'
 import { APIEndpoints } from '../api-endpoints/api-endpoints'
 import { Tokens, UserLogin, UserRegister } from '../types/auth.types'
+import axios from 'axios'
 
 export async function register(
   payload: UserRegister,
@@ -21,6 +22,12 @@ export async function register(
     return data
   } catch (error) {
     setLoading(false)
+
+    if (axios.isAxiosError(error)) {
+      // Handle Axios-specific errors
+    } else {
+      // Handle general errors
+    }
     // TODO: Set a proper error handler
     console.error('Error fetching tokens:', error)
     throw error
@@ -46,6 +53,12 @@ export async function login(
     return data
   } catch (error) {
     setLoading(false)
+
+    if (axios.isAxiosError(error)) {
+      // Handle Axios-specific errors
+    } else {
+      // Handle general errors
+    }
     // TODO: Set a proper error handler
     console.error('Error fetching tokens:', error)
     throw error

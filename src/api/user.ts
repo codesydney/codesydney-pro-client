@@ -16,11 +16,13 @@ export async function getUsers(
     return data
   } catch (error) {
     setLoading(false)
-    // TODO: Set a proper error handler
     if (!axios.isCancel(error)) {
-      console.error('Error fetching users:', error)
+      // Handle Axios-specific errors
+    } else {
+      // Handle general errors
     }
-
+    // TODO: Set a proper error handler
+    console.error('Error fetching tokens:', error)
     throw error
   }
 }
