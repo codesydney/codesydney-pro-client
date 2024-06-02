@@ -15,7 +15,6 @@ export async function register(
 
     setLoading(false)
     if (data.data.accessToken && data.data.refreshToken) {
-      console.warn('data', data)
       localStorage.setItem('accessToken', data.data.accessToken)
       localStorage.setItem('refreshToken', data.data.refreshToken)
     }
@@ -45,7 +44,6 @@ export async function login(
     )
 
     if (data.data.accessToken && data.data.refreshToken) {
-      console.warn('data', data)
       localStorage.setItem('accessToken', data.data.accessToken)
       localStorage.setItem('refreshToken', data.data.refreshToken)
     }

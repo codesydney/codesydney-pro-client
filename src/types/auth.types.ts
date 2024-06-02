@@ -5,6 +5,13 @@ export type Tokens = {
   }
 }
 
+export type AccessToken = {
+  id: string
+  email: string
+  role: Roles
+  exp: number
+}
+
 export interface UserRegister {
   firstName: string
   lastName: string
@@ -29,3 +36,5 @@ export interface User {
 export interface UserResponse {
   data: User[]
 }
+
+export type Roles = 'ADMIN' | 'USER'

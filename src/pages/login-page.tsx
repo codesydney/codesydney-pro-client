@@ -33,7 +33,7 @@ export default function LoginPage() {
 
     // If the action is success then navigate
     if (data.data) {
-      navigate('/home/experimental')
+      navigate('/admin')
     }
   }
 

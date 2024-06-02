@@ -16,6 +16,7 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (request: InternalAxiosRequestConfig) => {
     const accessToken = localStorage.getItem('accessToken')
+
     if (accessToken) {
       request.headers.Authorization = `Bearer ${accessToken}`
     }
@@ -40,7 +41,6 @@ apiClient.interceptors.response.use(
       !error.response?.config?.url?.includes('auth/refresh') &&
       !error.response?.config?.url?.includes('auth/login')
     ) {
-      console.warn('statusCode 401', statusCode)
       const refreshToken = localStorage.getItem('refreshToken') ?? ''
 
       // I think this is uga buga as we have to set the refresh token as header
