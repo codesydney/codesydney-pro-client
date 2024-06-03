@@ -20,7 +20,11 @@ export function useAuth() {
   return useContext(AuthContext)
 }
 
-export default function AuthProvider({ children }: any) {
+type Props = {
+  children: React.ReactNode
+}
+
+export default function AuthProvider(props: Props) {
   // State to hold the authentication token
   const [token, _] = useState<string | null>(
     localStorage.getItem('accessToken'),
@@ -48,6 +52,8 @@ export default function AuthProvider({ children }: any) {
   }
 
   return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>
+      {props.children}
+    </AuthContext.Provider>
   )
 }

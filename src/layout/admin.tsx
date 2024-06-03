@@ -1,5 +1,6 @@
-import { NavLink, Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import { useAuth } from '../providers/AuthProvider'
+import SideBar from '../components/dashboard/SideBar'
 
 export default function Admin() {
   const authContextValue = useAuth()
@@ -11,22 +12,14 @@ export default function Admin() {
 
   if (auth?.id && auth?.role === 'ADMIN') {
     return (
-      <div className="h-screen flex flex-col gap-4 m-4">
-        <div className=" flex justify-between gap-2">
-          <span>Admin App WIP</span>
-          <nav>
-            <NavLink
-              to={'/admin/dashboard'}
-              className="rounded bg-black text-sm font-bold text-white p-4"
-            >
-              To Customer Query
-            </NavLink>
-          </nav>
-        </div>
-
-        <main>
-          <Outlet />
-        </main>
+      <div className="h-screen flex flex-col gap-4">
+        <SideBar>
+          {/* Outlet navigates to the routed pages */}
+          {/* This sm:ml-64 is to offset the sidebar*/}
+          <main className="sm:ml-64">
+            <Outlet />
+          </main>
+        </SideBar>
       </div>
     )
   }
