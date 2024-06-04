@@ -16,6 +16,7 @@ import ExperimentalPage from './pages/experimental.tsx'
 import Admin from './layout/admin.tsx'
 import AdminPage from './pages/admin.tsx'
 import AuthProvider from './providers/AuthProvider.tsx'
+import UsersPage from './pages/users-page.tsx'
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: '/admin/exp',
         element: <ExperimentalPage />,
+      },
+      {
+        path: '/admin/users',
+        element: <UsersPage />,
       },
     ],
   },

@@ -2,7 +2,12 @@ import { useState } from 'react'
 import logo from '../assets/code-sydney.png'
 import { FaTh } from 'react-icons/fa'
 
-export default function Navbar() {
+type Props = {
+  handleToggleSideMenu: () => void
+}
+
+export default function Navbar(props: Props) {
+  const { handleToggleSideMenu } = props
   const [openUserMenu, setOpenUserMenu] = useState<boolean>(false)
 
   function handleToggleUserMenu(): void {
@@ -17,6 +22,7 @@ export default function Navbar() {
             <button
               type="button"
               className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              onClick={handleToggleSideMenu}
             >
               <span className="sr-only">Open sidebar</span>
               <FaTh className=" text-2xl" />

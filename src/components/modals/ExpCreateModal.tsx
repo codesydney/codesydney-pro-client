@@ -22,32 +22,31 @@ export default function ExpCreateModal(props: Props) {
   function onFieldChange(
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ): void {
-    const value: (typeof form)[keyof typeof form] = event.target.value
+    const { id, value } = event.target
+    const newValue = value
 
     setForm({
       ...form,
-      [event.target.id]: value,
+      [id]: newValue,
     })
   }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
-    event.preventDefault()
     event.stopPropagation()
 
-    console.warn('form', form)
     const data = await createExperiment(form)
 
     // If the action is success then navigate
     if (data.data) {
-      navigate('/home/experimental')
+      navigate('/admin/exp')
     }
   }
   return (
     <div
       aria-hidden="true"
-      className="m-auto overflow-y-auto overflow-x-hidden fixed top-0 right-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+      className="m-auto overflow-y-auto overflow-x-hidden fixed top-0 right-0 z-20 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
     >
-      <div className=" absolute top-1/4 right-1/4 p-4 w-full max-w-2xl max-h-full">
+      <div className=" absolute top-[40%] sm:left-[30%] p-4 w-full max-w-2xl max-h-full">
         {/* <!-- Modal content --> */}
         <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
           {/* <!-- Modal header --> */}

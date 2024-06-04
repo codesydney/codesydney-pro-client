@@ -26,9 +26,7 @@ type Props = {
 
 export default function AuthProvider(props: Props) {
   // State to hold the authentication token
-  const [token, _] = useState<string | null>(
-    localStorage.getItem('accessToken'),
-  )
+  const [token] = useState<string | null>(localStorage.getItem('accessToken'))
   const [decodedToken, setDecodedToken] = useState<AccessToken>(INIT_STATE)
 
   useEffect(() => {

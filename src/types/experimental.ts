@@ -8,9 +8,9 @@ export interface Experimental {
 }
 
 export interface ExperimentsApiResponse {
-  data: Experimental[]
+  data: Experimental[] | undefined
 }
 
 export interface ExperimentalApiResponse {
-  data: Experimental
+  data: Experimental | undefined
 }

@@ -1,98 +1,124 @@
+import React, { useState } from 'react'
+import { Experimental } from '../../types/experimental'
 import TableFooter from './TableFooter'
+import ExpUpdateModal from '../modals/ExpUpdateModal'
+import { FaCheckCircle, FaEdit, FaTimes, FaTrashAlt } from 'react-icons/fa'
+import ExpDeleteModal from '../modals/ExpDeleteModal'
 
-export default function TableBody() {
+type Props = {
+  data: Experimental[]
+}
+
+type ModalType = 'update' | 'delete' | null
+
+export default function TableBody(props: Props) {
+  const { data } = props
+
+  const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(
+    null,
+  )
+  const [modalType, setModalType] = useState<ModalType>(null)
+
+  function openModal(type: ModalType, index: number) {
+    setSelectedItemIndex(index)
+    setModalType(type)
+  }
+
+  function closeModal() {
+    setSelectedItemIndex(null)
+    setModalType(null)
+  }
+
   return (
-    <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-      <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4"></div>
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-4 py-3">
-                Id
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Tag
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Label
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Completed
-              </th>
-              <th scope="col" className="px-4 py-3">
-                <span className="sr-only">Actions</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border-b dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                ID
-              </th>
-              <td className="px-4 py-3">EXP</td>
-              <td className="px-4 py-3">Exp One</td>
-              <td className="px-4 py-3">False</td>
-              <td className="px-4 py-3 flex items-center justify-end">
-                <button
-                  id="apple-imac-27-dropdown-button"
-                  data-dropdown-toggle="apple-imac-27-dropdown"
-                  className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-                  type="button"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                  </svg>
-                </button>
-                <div
-                  id="apple-imac-27-dropdown"
-                  className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
-                >
-                  <ul
-                    className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                    aria-labelledby="apple-imac-27-dropdown-button"
-                  >
-                    <li>
-                      <a
-                        href="#"
-                        className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Show
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Edit
-                      </a>
-                    </li>
-                  </ul>
-                  <div className="py-1">
-                    <a
-                      href="#"
-                      className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+    <React.Fragment>
+      <div className="min-h-[50vh] bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+        <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4"></div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-4 py-3">
+                  Id
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Tag
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Label
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Completed
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Update
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Delete
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {data?.map((item, index) => {
+                return (
+                  <tr key={item.id} className="border-b dark:border-gray-700">
+                    <th
+                      scope="row"
+                      className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      Delete
-                    </a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                      {item?.id}
+                    </th>
+                    <td className="px-4 py-3">{item?.tag}</td>
+                    <td className="px-4 py-3">{item?.label}</td>
+                    <td className="px-4 py-3">
+                      {item?.completed ? (
+                        <FaCheckCircle className="w-5 h-5 me-2 text-green-700" />
+                      ) : (
+                        <FaTimes className="w-5 h-5 me-2 text-red-700" />
+                      )}
+                    </td>
+                    <td className="px-4 py-3">
+                      <button
+                        type="button"
+                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        onClick={() => openModal('update', index)}
+                      >
+                        <FaEdit className="w-3.5 h-3.5 me-2" />
+                        Update
+                      </button>
+                    </td>
+
+                    <td className="px-4 py-3">
+                      <button
+                        type="button"
+                        className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 text-center inline-flex items-center me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                        onClick={() => openModal('delete', index)}
+                      >
+                        <FaTrashAlt className="w-3.5 h-3.5 me-2" />
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+        <TableFooter />
       </div>
-      <TableFooter />
-    </div>
+
+      {modalType === 'update' && selectedItemIndex !== null && (
+        <ExpUpdateModal
+          data={data[selectedItemIndex]}
+          closeModal={closeModal}
+        />
+      )}
+
+      {modalType === 'delete' && selectedItemIndex !== null && (
+        <ExpDeleteModal
+          data={data[selectedItemIndex]}
+          closeModal={closeModal}
+        />
+      )}
+    </React.Fragment>
   )
 }

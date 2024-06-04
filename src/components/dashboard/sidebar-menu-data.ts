@@ -13,7 +13,7 @@ export type MenuItem = { label: string; link: string; Icon?: IconType }
 export const sideMenuItems: MenuItem[] = [
   { label: 'dashboard', link: '/', Icon: FaThLarge },
   { label: 'experimental', link: 'exp', Icon: FaTools },
-  { label: 'users', link: '', Icon: FaUserFriends },
+  { label: 'users', link: 'users', Icon: FaUserFriends },
   { label: 'skills', link: '', Icon: FaCode },
   { label: 'stats', link: '', Icon: FaChartBar },
 ]
