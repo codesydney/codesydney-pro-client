@@ -1,7 +1,7 @@
 import { NavLink, Navigate, Outlet } from 'react-router-dom'
 
 export default function Root() {
-  let auth = { token: true } // TODO: implement a provider to assert user is valid
+  const auth = { token: true } // TODO: implement a provider to assert user is valid
   // If user is null|undefined|invalid then redirect with early return
   if (!auth.token) {
     return <Navigate to="/login" />

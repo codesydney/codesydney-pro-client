@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import './index.css'
-import Root from './routes/root.tsx'
+import Root from './layout/root.tsx'
 import ErrorPage from './pages/error-page.tsx'
 import LoginPage from './pages/login-page.tsx'
 import HealthPage from './pages/health-page.tsx'
@@ -12,6 +12,11 @@ import CustomerQueryPage from './pages/customer-query.tsx'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { queryClient } from './api/queryClient.ts'
+import ExperimentalPage from './pages/experimental.tsx'
+import Admin from './layout/admin.tsx'
+import AdminPage from './pages/admin.tsx'
+import AuthProvider from './providers/AuthProvider.tsx'
+import UsersPage from './pages/users-page.tsx'
 
 const router = createBrowserRouter([
   {
@@ -44,6 +49,33 @@ const router = createBrowserRouter([
         path: '/home/customer-query',
         element: <CustomerQueryPage />,
       },
+      {
+        path: '/home/experimental',
+        element: <ExperimentalPage />,
+      },
+    ],
+  },
+  {
+    path: '/admin',
+    element: <Admin />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/admin/dashboard" replace />,
+      },
+      {
+        path: '/admin/dashboard',
+        element: <AdminPage />,
+      },
+      {
+        path: '/admin/exp',
+        element: <ExperimentalPage />,
+      },
+      {
+        path: '/admin/users',
+        element: <UsersPage />,
+      },
     ],
   },
 ])
@@ -51,7 +83,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>,
