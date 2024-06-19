@@ -5,7 +5,6 @@ import './index.css'
 import Root from './layout/root.tsx'
 import ErrorPage from './pages/error-page.tsx'
 import LoginPage from './pages/login-page.tsx'
-import HealthPage from './pages/health-page.tsx'
 import App from './App.tsx'
 import RegisterPage from './pages/register-page.tsx'
 import CustomerQueryPage from './pages/customer-query.tsx'
@@ -23,10 +22,6 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
-  },
-  {
-    path: '/health',
-    element: <HealthPage />,
   },
   {
     path: '/login',
