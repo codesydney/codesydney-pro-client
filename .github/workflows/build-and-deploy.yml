@@ -55,10 +55,10 @@ jobs:
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.CLOUD_HOST }}
-          username: t4g
+          username: pro
           key: ${{ secrets.CLOUD_KEY }}
           port: 22
           source: distfiles/*
           rm: true
-          target: htdocs/techies4good.code.sydney/
+          target: htdocs/pro.code.sydney/
           strip_components: 1
