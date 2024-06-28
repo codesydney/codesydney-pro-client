@@ -1,4 +1,4 @@
-# Techies4Good
+# Pro Code.Sydney
 
 # The Team
 * @promie | Promie Yutasane | DevOps/Web Developer
@@ -36,7 +36,7 @@
 | ** 2nd Milestone (Non-Profit/Charity sign up)**: By default, published profile will not expose all details to public. However, serious help seekers can sign up to T4G to see more details about the potential candidate.  |
 
 # Test Site
-* https://techies4good.code.sydney/
+* https://pro.code.sydney/
 
 ## Requirements
 * Node 20.13.1 LTS
