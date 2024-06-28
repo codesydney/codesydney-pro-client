@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { LogoHeader } from './components/LogoHeader'
 import Navbar from './components/nav/Navbar.tsx'
+import Footer from './components/Footer.tsx'
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
           </NavLink>
         </div>
       </section>
+      <Footer />
     </>
   )
 }
