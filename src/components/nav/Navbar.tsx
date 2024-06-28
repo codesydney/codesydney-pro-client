@@ -10,8 +10,8 @@ const Navbar: FC = () => {
   }
 
   return (
-    <div className="border-b-2 relative">
-      <nav className="flex justify-between items-center w-[92%] mx-auto p-[20px] relative z-50">
+    <div className="border-b-2 fixed top-0 left-0 right-0 bg-white z-50">
+      <nav className="flex justify-between items-center w-[92%] mx-auto p-[20px]">
         <div>
           <img
             className="w-16 cursor-pointer"
@@ -21,9 +21,9 @@ const Navbar: FC = () => {
         </div>
 
         <div
-          className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[30vh] left-0 ${menuOpen ? 'opacity-100 visible top-[130%]' : 'opacity-0 invisible top-[130%]'} md:opacity-100 md:visible md:top-auto md:flex md:items-center md:px-0 z-40 transition-all`}
+          className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[35vh] left-0 ${menuOpen ? 'opacity-100 visible top-[120%]' : 'opacity-0 invisible top-[120%]'} md:opacity-100 md:visible md:top-auto md:flex md:items-center md:px-0 z-50 transition-all md:w-auto w-full`}
         >
-          <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 md:p-0 p-[5px]">
+          <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 md:p-0 p-[15px]">
             <li className="hover:text-gray-500 cursor-pointer">Home</li>
             <li className="hover:text-gray-500 cursor-pointer">Developers</li>
             <li className="hover:text-gray-500 cursor-pointer">Contact Us</li>
