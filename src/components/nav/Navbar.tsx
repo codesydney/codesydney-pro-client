@@ -10,8 +10,8 @@ const Navbar: FC = () => {
   }
 
   return (
-    <div className="border-b-2">
-      <nav className="flex justify-between items-center w-[92%] mx-auto p-[20px]">
+    <div className="border-b-2 relative">
+      <nav className="flex justify-between items-center w-[92%] mx-auto p-[20px] relative z-50">
         <div>
           <img
             className="w-16 cursor-pointer"
@@ -21,18 +21,18 @@ const Navbar: FC = () => {
         </div>
 
         <div
-          className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[60vh] left-0 ${menuOpen ? 'top-[9%]' : 'top-[-100%]'} md:w-auto w-full flex items-center px-5`}
+          className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[30vh] left-0 ${menuOpen ? 'opacity-100 visible top-[130%]' : 'opacity-0 invisible top-[130%]'} md:opacity-100 md:visible md:top-auto md:flex md:items-center md:px-0 z-40 transition-all`}
         >
           <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
-            <li className="hover:text-gray-500">Home</li>
-            <li className="hover:text-gray-500">Developers</li>
-            <li className="hover:text-gray-500">Contact Us</li>
-            <li className="md:hidden block">
-              <button className="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
-                Register
-              </button>
+            <li className="hover:text-gray-500 cursor-pointer">Home</li>
+            <li className="hover:text-gray-500 cursor-pointer">Developers</li>
+            <li className="hover:text-gray-500 cursor-pointer">Contact Us</li>
+            <li className="md:hidden block hover:text-gray-500 cursor-pointer">
+              Register
             </li>
-            <li className="md:hidden block hover:text-gray-500">Login</li>
+            <li className="md:hidden block hover:text-gray-500 cursor-pointer">
+              Login
+            </li>
           </ul>
         </div>
 
@@ -47,8 +47,8 @@ const Navbar: FC = () => {
             className="text-3xl cursor-pointer md:hidden"
             onClick={toggleMenu}
           >
-            {menuOpen ? <IoIosClose /> : <IoIosMenu />}
-          </div>{' '}
+            {menuOpen ? <IoIosClose size={40} /> : <IoIosMenu />}
+          </div>
         </div>
       </nav>
     </div>
