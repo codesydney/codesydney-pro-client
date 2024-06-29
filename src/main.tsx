@@ -4,7 +4,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import './index.css'
 import Root from './layout/root.tsx'
 import ErrorPage from './pages/error-page.tsx'
-import LoginPage from './pages/login-page.tsx'
+import Login from './pages/Login.tsx'
 import Register from './pages/Register.tsx'
 import CustomerQueryPage from './pages/customer-query.tsx'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'login',
-        element: <LoginPage />,
+        element: <Login />,
       },
       {
         path: 'register',
