@@ -10,7 +10,7 @@ const FORM_INIT_STATE: UserLogin = {
   password: '',
 }
 
-export default function LoginPage() {
+export default function Login() {
   const navigate = useNavigate()
   const [form, setForm] = useState(FORM_INIT_STATE)
   const [loading, setLoading] = useState<boolean>(false)
