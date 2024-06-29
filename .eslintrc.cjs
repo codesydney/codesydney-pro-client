@@ -15,4 +15,12 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
+  overrides: [
+    {
+      files: ['tailwind.config.js'],
+      rules: {
+        'no-undef': 'off',
+      },
+    },
+  ],
 }
