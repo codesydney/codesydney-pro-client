@@ -31,17 +31,17 @@ const Navbar: FC = () => {
           className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[35vh] left-0 ${menuOpen ? 'opacity-100 visible top-[100%]' : 'opacity-0 invisible top-[100%]'} md:opacity-100 md:visible md:top-auto md:flex md:items-center md:px-0 z-50 transition-all md:w-auto w-full`}
         >
           <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 md:p-0 p-[15px]">
-            <li className="hover:text-gray-500 cursor-pointer">
+            <li className="hover:text-gray-500 cursor-pointer text-black">
               <Link to={'/'} onClick={closeMenu}>
                 Home
               </Link>
             </li>
-            <li className="hover:text-gray-500 cursor-pointer">
+            <li className="hover:text-gray-500 cursor-pointer text-black">
               <Link to={'/developers'} onClick={closeMenu}>
                 Developers
               </Link>
             </li>
-            <li className="hover:text-gray-500 cursor-pointer">
+            <li className="hover:text-gray-500 cursor-pointer text-black">
               <Link to={'/contact'} onClick={closeMenu}>
                 Contact Us
               </Link>
@@ -61,13 +61,13 @@ const Navbar: FC = () => {
 
         <div className="flex items-center gap-6">
           <Link to={'/login'}>
-            <button className="bg-[#355878] text-white px-5 py-2 rounded-full hover:bg-[#87acec] hidden md:block">
+            <button className="bg-primary-950 text-white px-5 py-2 rounded-full hover:bg-[#87acec] hidden md:block">
               Login
             </button>
           </Link>
 
           <Link to={'/register'}>
-            <button className="bg-[#355878] text-white px-5 py-2 rounded-full hover:bg-[#87acec] hidden md:block">
+            <button className="bg-primary-950  text-white px-5 py-2 rounded-full hover:bg-[#87acec] hidden md:block">
               Register
             </button>
           </Link>
