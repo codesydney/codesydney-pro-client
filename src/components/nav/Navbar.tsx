@@ -61,13 +61,13 @@ const Navbar: FC = () => {
 
         <div className="flex items-center gap-6">
           <Link to={'/login'}>
-            <button className="bg-primary-950 text-white px-5 py-2 rounded-full hover:bg-[#87acec] hidden md:block">
+            <button className="bg-primary-950 text-white px-5 py-2 rounded-full hover:bg-primary-600 hidden md:block">
               Login
             </button>
           </Link>
 
           <Link to={'/register'}>
-            <button className="bg-primary-950  text-white px-5 py-2 rounded-full hover:bg-[#87acec] hidden md:block">
+            <button className="bg-primary-950  text-white px-5 py-2 rounded-full hover:bg-primary-600 hidden md:block">
               Register
             </button>
           </Link>
