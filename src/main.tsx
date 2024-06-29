@@ -5,71 +5,86 @@ import './index.css'
 import Root from './layout/root.tsx'
 import ErrorPage from './pages/error-page.tsx'
 import LoginPage from './pages/login-page.tsx'
-import App from './App.tsx'
 import RegisterPage from './pages/register-page.tsx'
 import CustomerQueryPage from './pages/customer-query.tsx'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { queryClient } from './api/queryClient.ts'
+import MainLayout from './layout/MainLayout.tsx'
+import Home from './pages/Home.tsx'
 import ExperimentalPage from './pages/experimental.tsx'
 import Admin from './layout/admin.tsx'
 import AdminPage from './pages/admin.tsx'
 import AuthProvider from './providers/AuthProvider.tsx'
 import UsersPage from './pages/users-page.tsx'
+import Developers from './pages/Developers.tsx'
+import Contact from './pages/Contact.tsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: '/login',
-    element: <LoginPage />,
-  },
-  {
-    path: '/register',
-    element: <RegisterPage />,
-  },
-  {
-    path: '/home',
-    element: <Root />,
+    element: <MainLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        index: true,
-        element: <Navigate to="/home/customer-query" replace />,
+        path: '/',
+        element: <Home />,
       },
       {
-        path: '/home/customer-query',
-        element: <CustomerQueryPage />,
+        path: 'login',
+        element: <LoginPage />,
       },
       {
-        path: '/home/experimental',
-        element: <ExperimentalPage />,
-      },
-    ],
-  },
-  {
-    path: '/admin',
-    element: <Admin />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <Navigate to="/admin/dashboard" replace />,
+        path: 'register',
+        element: <RegisterPage />,
       },
       {
-        path: '/admin/dashboard',
-        element: <AdminPage />,
+        path: 'developers',
+        element: <Developers />,
       },
       {
-        path: '/admin/exp',
-        element: <ExperimentalPage />,
+        path: 'contact',
+        element: <Contact />,
       },
       {
-        path: '/admin/users',
-        element: <UsersPage />,
+        path: 'home',
+        element: <Root />,
+        children: [
+          {
+            index: true,
+            element: <Navigate to="customer-query" replace />,
+          },
+          {
+            path: 'customer-query',
+            element: <CustomerQueryPage />,
+          },
+          {
+            path: 'experimental',
+            element: <ExperimentalPage />,
+          },
+        ],
+      },
+      {
+        path: 'admin',
+        element: <Admin />,
+        children: [
+          {
+            index: true,
+            element: <Navigate to="dashboard" replace />,
+          },
+          {
+            path: 'dashboard',
+            element: <AdminPage />,
+          },
+          {
+            path: 'exp',
+            element: <ExperimentalPage />,
+          },
+          {
+            path: 'users',
+            element: <UsersPage />,
+          },
+        ],
       },
     ],
   },

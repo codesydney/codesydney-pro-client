@@ -23,7 +23,7 @@ const Footer: FC = () => {
                   />
                 </div>
                 <span className="self-center text-[20px] font-semibold">
-                  Pro Code.Sydney
+                  Code.Sydney Pro
                 </span>
               </a>
             </div>
