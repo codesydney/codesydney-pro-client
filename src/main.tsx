@@ -5,7 +5,7 @@ import './index.css'
 import Root from './layout/root.tsx'
 import ErrorPage from './pages/error-page.tsx'
 import LoginPage from './pages/login-page.tsx'
-import RegisterPage from './pages/register-page.tsx'
+import Register from './pages/Register.tsx'
 import CustomerQueryPage from './pages/customer-query.tsx'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'register',
-        element: <RegisterPage />,
+        element: <Register />,
       },
       {
         path: 'developers',
