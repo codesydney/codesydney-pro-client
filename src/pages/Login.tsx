@@ -1,93 +1,112 @@
-import { NavLink, useNavigate } from 'react-router-dom'
-import { ChangeEvent, FormEvent, useState } from 'react'
-import { LogoHeader } from '../components/LogoHeader'
-import { UserLogin } from '../types/auth.types'
-import { login } from '../api/auth'
-import LoadingSpinner from '../components/LoadingSpinner'
+import { FC } from 'react'
+import { Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { loginSchema } from '../schema'
+import { ILogin } from '../types'
 
-const FORM_INIT_STATE: UserLogin = {
-  email: '',
-  password: '',
-}
+const Login: FC = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(loginSchema),
+  })
 
-export default function Login() {
-  const navigate = useNavigate()
-  const [form, setForm] = useState(FORM_INIT_STATE)
-  const [loading, setLoading] = useState<boolean>(false)
-
-  function onFieldChange(event: ChangeEvent<HTMLInputElement>): void {
-    const value: (typeof form)[keyof typeof form] = event.target.value
-
-    setForm({
-      ...form,
-      [event.target.id]: value,
-    })
-  }
-
-  async function onSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
-    event.preventDefault()
-    event.stopPropagation()
-    setLoading(true)
-
-    const data = await login(form, setLoading)
-
-    // If the action is success then navigate
-    if (data.data) {
-      navigate('/admin')
-    }
+  const onSubmit = async (formData: ILogin) => {
+    // @TODO - Handle form submission
+    console.log(formData)
   }
 
   return (
-    <section className=" h-screen flex flex-col gap-4 justify-between items-center py-20 m-4">
-      <LogoHeader title="Techies4Good" />
-
-      <div className="w-full sm:max-w-[450px]">
-        <div className=" text-xl text-center font-medium mb-4">
-          <h2>Login</h2>
-        </div>
-        <form onSubmit={onSubmit}>
-          <div className="">
-            <label className="text-sm font-bold">Email</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="email"
-              className="flex h-12 w-full items-center justify-center rounded-md border-2 bg-white/0 p-3 text-sm outline-none border-black"
-              onChange={onFieldChange}
-            />
-          </div>
-          <div className="">
-            <label className="text-sm font-bold">Password</label>
-            <input
-              type="password"
-              id="password"
-              placeholder="password"
-              className="flex h-12 w-full items-center justify-center rounded-md border-2 bg-white/0 p-3 text-sm outline-none border-black"
-              onChange={onFieldChange}
-            />
-          </div>
-          <div className=" w-full sm:max-w-[450px] flex flex-col items-center mt-4">
-            <button
-              type="submit"
-              className=" w-full m-auto rounded bg-black px-4 py-2 text-white shadow-md uppercase border-2 border-black"
-              disabled={loading}
-            >
-              {loading && <LoadingSpinner />}
-              Login
-            </button>
-
-            <p className="mt-6 flex justify-center gap-2 text-sm font-light">
-              Don't have an account?
-              <NavLink
-                to={'/register'}
-                className="text-sm font-bold text-black"
-              >
-                Register
-              </NavLink>
-            </p>
-          </div>
-        </form>
+    <div className="h-auto md:h-[70vh] bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 px-[15px] md:px-0 mt-[30px]">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
+          Login to your account
+        </h2>
+        <p className="mt-2 text-center text-sm leading-5 text-gray-500 max-w">
+          Or{' '}
+          <Link
+            to="/register"
+            className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+          >
+            create a new account
+          </Link>
+        </p>
       </div>
-    </section>
+
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <label
+                htmlFor="firstName"
+                className="block text-sm font-medium leading-5  text-gray-700"
+              >
+                First name
+              </label>
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <input
+                  type="email"
+                  {...register('email')}
+                  className={`input input-bordered w-full ${
+                    errors.email
+                      ? 'border-2 border-red-500 focus:border-transparent focus:outline-red-500 focus:ring-2 focus:ring-red-500'
+                      : 'border-2 border-gray-300 focus:border-transparent focus:ring-2 focus:ring-primary'
+                  } focus:outline-primary`}
+                />
+
+                {errors.email && (
+                  <div className="label">
+                    <span className="label-text-alt text-red-500">
+                      {errors.email.message}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-5 text-gray-700"
+              >
+                Password
+              </label>
+              <div className="mt-1 rounded-md shadow-sm">
+                <input
+                  type="password"
+                  {...register('password')}
+                  className={`input input-bordered w-full ${
+                    errors.password
+                      ? 'border-2 border-red-500 focus:border-transparent focus:outline-red-500 focus:ring-2 focus:ring-red-500'
+                      : 'border-2 border-gray-300 focus:border-transparent focus:ring-2 focus:ring-primary'
+                  } focus:outline-primary`}
+                />
+
+                {errors.password && (
+                  <div className="label">
+                    <span className="label-text-alt text-red-500">
+                      {errors.password.message}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <span className="block w-full rounded-md shadow-sm">
+                <button className="btn bg-primary-950 w-full text-white hover:bg-primary-600">
+                  Login
+                </button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   )
 }
+
+export default Login
