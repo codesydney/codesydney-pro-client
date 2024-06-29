@@ -10,6 +10,10 @@ const Navbar: FC = () => {
     setMenuOpen(!menuOpen)
   }
 
+  const closeMenu = () => {
+    setMenuOpen(false)
+  }
+
   return (
     <div className="border-b-2 fixed top-0 left-0 right-0 bg-white z-50">
       <nav className="flex justify-between items-center w-[92%] mx-auto p-[20px]">
@@ -28,19 +32,29 @@ const Navbar: FC = () => {
         >
           <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 md:p-0 p-[15px]">
             <li className="hover:text-gray-500 cursor-pointer">
-              <Link to={'/'}>Home</Link>
+              <Link to={'/'} onClick={closeMenu}>
+                Home
+              </Link>
             </li>
             <li className="hover:text-gray-500 cursor-pointer">
-              <Link to={'/developers'}>Developers</Link>
+              <Link to={'/developers'} onClick={closeMenu}>
+                Developers
+              </Link>
             </li>
             <li className="hover:text-gray-500 cursor-pointer">
-              <Link to={'/contact'}>Contact Us</Link>
+              <Link to={'/contact'} onClick={closeMenu}>
+                Contact Us
+              </Link>
             </li>
             <li className="md:hidden block hover:text-gray-500 cursor-pointer">
-              <Link to={'/login'}>Login</Link>
+              <Link to={'/login'} onClick={closeMenu}>
+                Login
+              </Link>
             </li>
             <li className="md:hidden block hover:text-gray-500 cursor-pointer">
-              <Link to={'/register'}>Register</Link>
+              <Link to={'/register'} onClick={closeMenu}>
+                Register
+              </Link>
             </li>
           </ul>
         </div>
