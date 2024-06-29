@@ -10,12 +10,15 @@ import CustomerQueryPage from './pages/customer-query.tsx'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { queryClient } from './api/queryClient.ts'
+import MainLayout from './layout/MainLayout.tsx'
+import Home from './pages/Home.tsx'
 import ExperimentalPage from './pages/experimental.tsx'
 import Admin from './layout/admin.tsx'
 import AdminPage from './pages/admin.tsx'
 import AuthProvider from './providers/AuthProvider.tsx'
 import UsersPage from './pages/users-page.tsx'
-import MainLayout from './layout/MainLayout.tsx'
+import Developers from './pages/Developers.tsx'
+import Contact from './pages/Contact.tsx'
 
 const router = createBrowserRouter([
   {
@@ -24,12 +27,24 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        path: '/',
+        element: <Home />,
+      },
+      {
         path: 'login',
         element: <LoginPage />,
       },
       {
         path: 'register',
         element: <RegisterPage />,
+      },
+      {
+        path: 'developers',
+        element: <Developers />,
+      },
+      {
+        path: 'contact',
+        element: <Contact />,
       },
       {
         path: 'home',
