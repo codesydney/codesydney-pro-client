@@ -1,11 +1,16 @@
-import { FC } from 'react'
-import { Link } from 'react-router-dom'
+import { FC, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { loginSchema } from '../schema'
 import { ILogin } from '../types'
+import { login } from '../api/auth'
 
 const Login: FC = () => {
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -15,8 +20,16 @@ const Login: FC = () => {
   })
 
   const onSubmit = async (formData: ILogin) => {
-    // @TODO - Handle form submission
-    console.log(formData)
+    setLoading(true)
+
+    try {
+      const response = await login(formData, setLoading)
+      if (response.data) {
+        navigate('/admin')
+      }
+    } catch (error) {
+      console.error('Error logging in:', error)
+    }
   }
 
   return (
@@ -41,10 +54,10 @@ const Login: FC = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label
-                htmlFor="firstName"
+                htmlFor="email"
                 className="block text-sm font-medium leading-5  text-gray-700"
               >
-                First name
+                Email
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <input
@@ -98,7 +111,11 @@ const Login: FC = () => {
             <div className="mt-6">
               <span className="block w-full rounded-md shadow-sm">
                 <button className="btn bg-primary-950 w-full text-white hover:bg-primary-600">
-                  Login
+                  {loading ? (
+                    <span className="loading loading-spinner"></span>
+                  ) : (
+                    'Login'
+                  )}
                 </button>
               </span>
             </div>
