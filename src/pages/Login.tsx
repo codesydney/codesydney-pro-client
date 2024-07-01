@@ -41,10 +41,10 @@ const Login: FC = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label
-                htmlFor="firstName"
+                htmlFor="email"
                 className="block text-sm font-medium leading-5  text-gray-700"
               >
-                First name
+                Email
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <input
