@@ -3,7 +3,7 @@ import { APIEndpoints } from '../api-endpoints/api-endpoints'
 import { Tokens, UserLogin, UserRegister } from '../types/auth.types'
 import axios from 'axios'
 
-export async function register(
+export async function registerAccount(
   payload: UserRegister,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
 ): Promise<Tokens> {

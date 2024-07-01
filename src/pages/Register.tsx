@@ -1,11 +1,17 @@
-import { FC } from 'react'
-import { Link } from 'react-router-dom'
+import { FC, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { omit } from 'lodash'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { registerSchema } from '../schema'
 import { IRegister } from '../types'
+import { registerAccount } from '../api/auth'
 
 const Register: FC = () => {
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -15,8 +21,18 @@ const Register: FC = () => {
   })
 
   const onSubmit = async (formData: IRegister) => {
-    // @TODO - Handle form submission
-    console.log(formData)
+    const data = omit(formData, 'passwordConfirm')
+
+    setLoading(true)
+
+    try {
+      const response = await registerAccount(data, setLoading)
+      if (response.data) {
+        navigate('/home/experimental')
+      }
+    } catch (error) {
+      console.error('Error registering user:', error)
+    }
   }
 
   return (
@@ -184,7 +200,11 @@ const Register: FC = () => {
             <div className="mt-6">
               <span className="block w-full rounded-md shadow-sm">
                 <button className="btn bg-primary-950 w-full text-white hover:bg-primary-600">
-                  Register
+                  {loading ? (
+                    <span className="loading loading-spinner"></span>
+                  ) : (
+                    'Register'
+                  )}
                 </button>
               </span>
             </div>
