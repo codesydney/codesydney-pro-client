@@ -62,3 +62,19 @@ export async function login(
     throw error
   }
 }
+
+export async function logout(
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+): Promise<void> {
+  try {
+    setLoading(true)
+    await apiClient.post(APIEndpoints.Auth.authLogout())
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+    setLoading(false)
+  } catch (error) {
+    setLoading(false)
+    console.error('Error logging out:', error)
+    throw error
+  }
+}
