@@ -1,13 +1,17 @@
 import { FC, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { IoIosMenu, IoIosClose } from 'react-icons/io'
 import logoImage from '../../assets/code-sydney.png'
 import { useAuth } from '../../providers/AuthProvider.tsx'
+import { logout } from '../../api/auth.ts'
 
 const Navbar: FC = () => {
+  const [loading, setLoading] = useState<boolean>(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, setToken } = useAuth()
+
+  const navigate = useNavigate()
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
@@ -15,6 +19,16 @@ const Navbar: FC = () => {
 
   const closeMenu = () => {
     setMenuOpen(false)
+  }
+
+  const handleLogout = async () => {
+    try {
+      await logout(setLoading)
+      setToken(null)
+      navigate('/')
+    } catch (error) {
+      console.error('Error logging out:', error)
+    }
   }
 
   return (
@@ -50,10 +64,14 @@ const Navbar: FC = () => {
               </Link>
             </li>
             {isAuthenticated ? (
-              <li className="md:hidden block hover:text-gray-500 cursor-pointer">
-                <Link to={'/login'} onClick={closeMenu}>
-                  Logout
-                </Link>
+              <li
+                className="md:hidden block hover:text-gray-500 cursor-pointer"
+                onClick={() => {
+                  handleLogout()
+                  closeMenu()
+                }}
+              >
+                Logout
               </li>
             ) : (
               <>
@@ -74,8 +92,15 @@ const Navbar: FC = () => {
 
         <div className="flex items-center gap-6">
           {isAuthenticated ? (
-            <button className="bg-primary-950  text-white px-5 py-2 rounded-full hover:bg-primary-600 hidden md:block">
-              Logout
+            <button
+              className="bg-primary-950  text-white px-5 py-2 rounded-full hover:bg-primary-600 hidden md:block"
+              onClick={handleLogout}
+            >
+              {loading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                'Logout'
+              )}
             </button>
           ) : (
             <>
