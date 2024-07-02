@@ -6,9 +6,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { registerSchema } from '../schema'
 import { IRegister } from '../types'
 import { registerAccount } from '../api/auth'
+import { useAuth } from '../providers/AuthProvider'
 
 const Register: FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
+  const { setToken } = useAuth()
 
   const navigate = useNavigate()
 
@@ -28,6 +30,7 @@ const Register: FC = () => {
     try {
       const response = await registerAccount(data, setLoading)
       if (response.data) {
+        setToken(response.data.accessToken)
         navigate('/home/experimental')
       }
     } catch (error) {
