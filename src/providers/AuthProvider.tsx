@@ -12,14 +12,14 @@ export type AuthContextValue = {
   token: string | null
   decodedToken: AccessToken | null
   setToken: (token: string | null) => void
-  isAuthenticated: () => boolean
+  isAuthenticated: boolean
 }
 
 const AuthContext = createContext<AuthContextValue>({
   token: null,
   decodedToken: null,
   setToken: () => {},
-  isAuthenticated: () => false,
+  isAuthenticated: false,
 })
 
 export function useAuth() {
@@ -45,16 +45,12 @@ export default function AuthProvider(props: Props) {
     }
   }, [token])
 
-  const isAuthenticated = () => {
-    return !!token
-  }
-
   const contextValue: AuthContextValue = useMemo(
     () => ({
       token,
       decodedToken,
       setToken,
-      isAuthenticated,
+      isAuthenticated: !!token,
     }),
     [token, decodedToken],
   )

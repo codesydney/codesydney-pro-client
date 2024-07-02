@@ -2,9 +2,12 @@ import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IoIosMenu, IoIosClose } from 'react-icons/io'
 import logoImage from '../../assets/code-sydney.png'
+import { useAuth } from '../../providers/AuthProvider.tsx'
 
 const Navbar: FC = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const { isAuthenticated } = useAuth()
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
@@ -46,31 +49,49 @@ const Navbar: FC = () => {
                 Contact Us
               </Link>
             </li>
-            <li className="md:hidden block hover:text-gray-500 cursor-pointer">
-              <Link to={'/login'} onClick={closeMenu}>
-                Login
-              </Link>
-            </li>
-            <li className="md:hidden block hover:text-gray-500 cursor-pointer">
-              <Link to={'/register'} onClick={closeMenu}>
-                Register
-              </Link>
-            </li>
+            {isAuthenticated ? (
+              <li className="md:hidden block hover:text-gray-500 cursor-pointer">
+                <Link to={'/login'} onClick={closeMenu}>
+                  Logout
+                </Link>
+              </li>
+            ) : (
+              <>
+                <li className="md:hidden block hover:text-gray-500 cursor-pointer">
+                  <Link to={'/login'} onClick={closeMenu}>
+                    Login
+                  </Link>
+                </li>
+                <li className="md:hidden block hover:text-gray-500 cursor-pointer">
+                  <Link to={'/register'} onClick={closeMenu}>
+                    Register
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
 
         <div className="flex items-center gap-6">
-          <Link to={'/login'}>
-            <button className="bg-primary-950 text-white px-5 py-2 rounded-full hover:bg-primary-600 hidden md:block">
-              Login
-            </button>
-          </Link>
-
-          <Link to={'/register'}>
+          {isAuthenticated ? (
             <button className="bg-primary-950  text-white px-5 py-2 rounded-full hover:bg-primary-600 hidden md:block">
-              Register
+              Logout
             </button>
-          </Link>
+          ) : (
+            <>
+              <Link to={'/login'}>
+                <button className="bg-primary-950 text-white px-5 py-2 rounded-full hover:bg-primary-600 hidden md:block">
+                  Login
+                </button>
+              </Link>
+
+              <Link to={'/register'}>
+                <button className="bg-primary-950  text-white px-5 py-2 rounded-full hover:bg-primary-600 hidden md:block">
+                  Register
+                </button>
+              </Link>
+            </>
+          )}
 
           <div
             className="text-3xl cursor-pointer md:hidden"
