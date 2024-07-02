@@ -5,9 +5,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { loginSchema } from '../schema'
 import { ILogin } from '../types'
 import { login } from '../api/auth'
+import { useAuth } from '../providers/AuthProvider'
 
 const Login: FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
+  const { setToken } = useAuth()
 
   const navigate = useNavigate()
 
@@ -25,6 +27,7 @@ const Login: FC = () => {
     try {
       const response = await login(formData, setLoading)
       if (response.data) {
+        setToken(response.data.accessToken)
         navigate('/admin')
       }
     } catch (error) {
