@@ -8,14 +8,18 @@ const INIT_STATE: AccessToken = {
   exp: 0,
 }
 
-export type AuthContextValue =
-  | {
-      token: string | null
-      decodedToken: AccessToken | null
-    }
-  | undefined
+export type AuthContextValue = {
+  token: string | null
+  decodedToken: AccessToken | null
+  setToken: (token: string | null) => void
+}
 
-const AuthContext = createContext<AuthContextValue | undefined>(undefined)
+const AuthContext = createContext<AuthContextValue>({
+  token: null,
+  decodedToken: null,
+  setToken: () => {},
+})
+
 export function useAuth() {
   return useContext(AuthContext)
 }
@@ -26,7 +30,9 @@ type Props = {
 
 export default function AuthProvider(props: Props) {
   // State to hold the authentication token
-  const [token] = useState<string | null>(localStorage.getItem('accessToken'))
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem('accessToken'),
+  )
   const [decodedToken, setDecodedToken] = useState<AccessToken>(INIT_STATE)
 
   useEffect(() => {
@@ -37,17 +43,14 @@ export default function AuthProvider(props: Props) {
     }
   }, [token])
 
-  const contextValue: AuthContextValue = useMemo(createContextValue, [
-    token,
-    decodedToken,
-  ])
-
-  function createContextValue(): AuthContextValue {
-    return {
+  const contextValue: AuthContextValue = useMemo(
+    () => ({
       token,
       decodedToken,
-    }
-  }
+      setToken,
+    }),
+    [token, decodedToken],
+  )
 
   return (
     <AuthContext.Provider value={contextValue}>
