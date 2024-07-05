@@ -16,6 +16,7 @@ import ExperimentalPage from './pages/experimental.tsx'
 import Admin from './layout/admin.tsx'
 import AdminPage from './pages/admin.tsx'
 import AuthProvider from './providers/AuthProvider.tsx'
+import ToasterProvider from './providers/ToasterProvider.tsx'
 import UsersPage from './pages/users-page.tsx'
 import Developers from './pages/Developers.tsx'
 import Contact from './pages/Contact.tsx'
@@ -96,6 +97,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <AuthProvider>
         <RouterProvider router={router} />
       </AuthProvider>
+      <ToasterProvider />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>,

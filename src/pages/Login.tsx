@@ -2,6 +2,7 @@ import { FC, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { toast } from 'sonner'
 import { loginSchema } from '../schema'
 import { ILogin } from '../types'
 import { login } from '../api/auth'
@@ -32,6 +33,7 @@ const Login: FC = () => {
     if (response.data) {
       setToken(response.data.accessToken)
       navigate('/admin')
+      toast.success('Login successful')
     }
   }
 

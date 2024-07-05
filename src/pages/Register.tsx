@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { omit } from 'lodash'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { CiWarning } from 'react-icons/ci'
+import { toast } from 'sonner'
 import { registerSchema } from '../schema'
 import { IRegister } from '../types'
 import { registerAccount } from '../api/auth'
@@ -34,6 +35,7 @@ const Register: FC = () => {
     if (response.data) {
       setToken(response.data.accessToken)
       navigate('/home/experimental')
+      toast.success('Account created successfully')
     }
   }
 
