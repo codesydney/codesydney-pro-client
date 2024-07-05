@@ -30,7 +30,7 @@ const Login: FC = () => {
     setLoading(true)
 
     const response = await login(formData, setLoading, setErrorMessage)
-    if (response.data) {
+    if (response?.data) {
       setToken(response.data.accessToken)
       navigate('/admin')
       toast.success('Login successful')

@@ -32,7 +32,7 @@ const Register: FC = () => {
     setLoading(true)
 
     const response = await registerAccount(data, setLoading, setErrorMessage)
-    if (response.data) {
+    if (response?.data) {
       setToken(response.data.accessToken)
       navigate('/home/experimental')
       toast.success('Account created successfully')
