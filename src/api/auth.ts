@@ -7,7 +7,7 @@ export async function registerAccount(
   payload: UserRegister,
   setLoading: Dispatch<SetStateAction<boolean>>,
   setMessage: Dispatch<SetStateAction<string>>,
-): Promise<Tokens> {
+): Promise<Tokens | undefined> {
   try {
     const { data } = await apiClient.post<Tokens>(
       APIEndpoints.Auth.authRegister(),
@@ -25,8 +25,7 @@ export async function registerAccount(
     return data
   } catch (error: any) {
     setLoading(false)
-    setMessage(error?.response?.data.message)
-    throw error
+    setMessage(error?.response?.data.message || error?.message)
   }
 }
 
@@ -34,7 +33,7 @@ export async function login(
   payload: UserLogin,
   setLoading: Dispatch<SetStateAction<boolean>>,
   setMessage: Dispatch<SetStateAction<string>>,
-): Promise<Tokens> {
+): Promise<Tokens | undefined> {
   try {
     const { data } = await apiClient.post<Tokens>(
       APIEndpoints.Auth.authLogin(),
@@ -52,9 +51,7 @@ export async function login(
     return data
   } catch (error: any) {
     setLoading(false)
-    setMessage(error?.response?.data.message)
-
-    throw error
+    setMessage(error?.response?.data.message || error?.message)
   }
 }
 
