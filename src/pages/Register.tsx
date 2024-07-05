@@ -3,13 +3,17 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { omit } from 'lodash'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { CiWarning } from 'react-icons/ci'
+import { toast } from 'sonner'
 import { registerSchema } from '../schema'
 import { IRegister } from '../types'
 import { registerAccount } from '../api/auth'
 import { useAuth } from '../providers/AuthProvider'
+import Notification from '../components/Notification.tsx'
 
 const Register: FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
   const { setToken } = useAuth()
 
   const navigate = useNavigate()
@@ -27,14 +31,11 @@ const Register: FC = () => {
 
     setLoading(true)
 
-    try {
-      const response = await registerAccount(data, setLoading)
-      if (response.data) {
-        setToken(response.data.accessToken)
-        navigate('/home/experimental')
-      }
-    } catch (error) {
-      console.error('Error registering user:', error)
+    const response = await registerAccount(data, setLoading, setErrorMessage)
+    if (response?.data) {
+      setToken(response.data.accessToken)
+      navigate('/home/experimental')
+      toast.success('Account created successfully')
     }
   }
 
@@ -56,6 +57,15 @@ const Register: FC = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        {errorMessage && (
+          <div className="mb-[15px]">
+            <Notification
+              icon={CiWarning}
+              message={errorMessage}
+              type={'warning'}
+            />
+          </div>
+        )}
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
