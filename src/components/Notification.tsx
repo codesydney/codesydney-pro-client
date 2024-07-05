@@ -8,10 +8,8 @@ interface NotificationProps {
 }
 
 const Notification: FC<NotificationProps> = ({ icon: Icon, message, type }) => {
-  const alertClassName = `alert alert-${type}`
-
   return (
-    <div role="alert" className={alertClassName}>
+    <div role="alert" className={`alert alert-${type}`}>
       <Icon className="h-6 w-6 shrink-0 stroke-current" />
       <span>{message}</span>
     </div>

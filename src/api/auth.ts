@@ -6,6 +6,7 @@ import axios from 'axios'
 export async function registerAccount(
   payload: UserRegister,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setMessage: React.Dispatch<React.SetStateAction<string>>,
 ): Promise<Tokens> {
   try {
     const { data } = await apiClient.post<Tokens>(
@@ -14,21 +15,15 @@ export async function registerAccount(
     )
 
     setLoading(false)
+    setMessage('')
     if (data.data.accessToken && data.data.refreshToken) {
       localStorage.setItem('accessToken', data.data.accessToken)
       localStorage.setItem('refreshToken', data.data.refreshToken)
     }
     return data
-  } catch (error) {
+  } catch (error: any) {
     setLoading(false)
-
-    if (axios.isAxiosError(error)) {
-      // Handle Axios-specific errors
-    } else {
-      // Handle general errors
-    }
-    // TODO: Set a proper error handler
-    console.error('Error fetching tokens:', error)
+    setMessage(error?.response?.data.message)
     throw error
   }
 }
