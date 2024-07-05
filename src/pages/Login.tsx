@@ -6,9 +6,13 @@ import { loginSchema } from '../schema'
 import { ILogin } from '../types'
 import { login } from '../api/auth'
 import { useAuth } from '../providers/AuthProvider'
+import Notification from '../components/Notification.tsx'
+import { CiWarning } from 'react-icons/ci'
 
 const Login: FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
+
   const { setToken } = useAuth()
 
   const navigate = useNavigate()
@@ -24,14 +28,10 @@ const Login: FC = () => {
   const onSubmit = async (formData: ILogin) => {
     setLoading(true)
 
-    try {
-      const response = await login(formData, setLoading)
-      if (response.data) {
-        setToken(response.data.accessToken)
-        navigate('/admin')
-      }
-    } catch (error) {
-      console.error('Error logging in:', error)
+    const response = await login(formData, setLoading, setErrorMessage)
+    if (response.data) {
+      setToken(response.data.accessToken)
+      navigate('/admin')
     }
   }
 
@@ -53,6 +53,15 @@ const Login: FC = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        {errorMessage && (
+          <div className="mb-[15px]">
+            <Notification
+              icon={CiWarning}
+              message={errorMessage}
+              type={'warning'}
+            />
+          </div>
+        )}
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>

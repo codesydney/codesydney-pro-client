@@ -1,12 +1,12 @@
+import { Dispatch, SetStateAction } from 'react'
 import apiClient from './client'
 import { APIEndpoints } from '../api-endpoints/api-endpoints'
 import { Tokens, UserLogin, UserRegister } from '../types/auth.types'
-import axios from 'axios'
 
 export async function registerAccount(
   payload: UserRegister,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setMessage: React.Dispatch<React.SetStateAction<string>>,
+  setLoading: Dispatch<SetStateAction<boolean>>,
+  setMessage: Dispatch<SetStateAction<string>>,
 ): Promise<Tokens> {
   try {
     const { data } = await apiClient.post<Tokens>(
@@ -14,12 +14,14 @@ export async function registerAccount(
       payload,
     )
 
-    setLoading(false)
-    setMessage('')
     if (data.data.accessToken && data.data.refreshToken) {
       localStorage.setItem('accessToken', data.data.accessToken)
       localStorage.setItem('refreshToken', data.data.refreshToken)
     }
+
+    setLoading(false)
+    setMessage('')
+
     return data
   } catch (error: any) {
     setLoading(false)
@@ -30,7 +32,8 @@ export async function registerAccount(
 
 export async function login(
   payload: UserLogin,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setLoading: Dispatch<SetStateAction<boolean>>,
+  setMessage: Dispatch<SetStateAction<string>>,
 ): Promise<Tokens> {
   try {
     const { data } = await apiClient.post<Tokens>(
@@ -42,24 +45,21 @@ export async function login(
       localStorage.setItem('accessToken', data.data.accessToken)
       localStorage.setItem('refreshToken', data.data.refreshToken)
     }
-    setLoading(false)
-    return data
-  } catch (error) {
-    setLoading(false)
 
-    if (axios.isAxiosError(error)) {
-      // Handle Axios-specific errors
-    } else {
-      // Handle general errors
-    }
-    // TODO: Set a proper error handler
-    console.error('Error fetching tokens:', error)
+    setLoading(false)
+    setMessage('')
+
+    return data
+  } catch (error: any) {
+    setLoading(false)
+    setMessage(error?.response?.data.message)
+
     throw error
   }
 }
 
 export async function logout(
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setLoading: Dispatch<SetStateAction<boolean>>,
 ): Promise<void> {
   try {
     setLoading(true)
